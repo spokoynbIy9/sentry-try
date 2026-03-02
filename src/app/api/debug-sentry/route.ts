@@ -1,11 +1,23 @@
 import * as Sentry from "@sentry/nextjs";
 
 export async function GET() {
-  try {
-    throw new Error("Demo server-side error from /api/debug-sentry");
-  } catch (error) {
-    Sentry.captureException(error);
-    await Sentry.flush(2000); // дать времени отправиться
-    return new Response("Server error sent to Sentry", { status: 500 });
-  }
+  const eventId = Sentry.captureException(
+    new Error("Server booking sync failed after checkout"),
+    {
+      tags: {
+        module: "booking",
+        feature: "server-sync",
+        severity: "critical",
+      },
+      extra: {
+        bookingId: "booking_10017",
+        courtId: "court_3",
+        paymentStatus: "paid",
+        bookingStatus: "pending_sync",
+      },
+    },
+  );
+  await Sentry.flush(5000);
+
+  return Response.json({ ok: false, eventId }, { status: 500 });
 }

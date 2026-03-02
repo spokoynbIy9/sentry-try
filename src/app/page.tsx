@@ -4,14 +4,14 @@ export default function Home() {
   return (
     <main>
       <section className="card">
-        <h1>Sentry + Next.js + TypeScript Demo</h1>
+        <h1>Sentry Demo for Tennis Court Booking</h1>
         <p>
-          This page has two buttons. One sends a handled error with <code>Sentry.captureException</code>,
-          the other throws an unhandled error.
+          This page simulates realistic frontend monitoring scenarios for a tennis booking admin panel:
+          tagged booking errors, business warnings, unhandled UI crashes, and a traced booking flow.
         </p>
         <ErrorTriggerButton />
         <p className="note">
-          Server-side check: open <code>/api/debug-sentry</code> to generate a backend error event.
+          Server-side check: open <code>/api/debug-sentry</code> to generate a tagged backend error event.
         </p>
       </section>
     </main>
